@@ -1,6 +1,6 @@
 {
   "name": "@capbase/capbase-amplify-auth-transformer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Adds dependencies to DynamoDB table definitions in order to prevent concurrent creation limits from kicking in",
   "main": "index.js",
   "author": "meshde",

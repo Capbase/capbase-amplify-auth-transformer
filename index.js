@@ -37,6 +37,19 @@ class CapbaseAmplifyAuthTransformer extends Transformer {
     const template = ctx.template;
 
     Object.values(template.Resources)
+      .filter(({ Type, Properties }) => Type === "AWS::AppSync::Resolver" && Properties.TypeName === "Query")
+      .forEach(({ Properties }) => {
+        Properties.RequestMappingTemplate = `## [Start] Impersonation sub Replacement
+#set( $userGroups = $util.defaultIfNull($ctx.identity.claims.get("cognito:groups"), []) )
+#set( $disallowedGroup = "Impersonated-User" )
+#if( $userGroups.contains($disallowedGroup) )
+  #set( $ctx.identity.claims.sub = $ctx.identity.claims.impersonatedSub )
+#end
+## [End] Impersonation sub Replacement
+${Properties.RequestMappingTemplate}`;
+      });
+
+    Object.values(template.Resources)
       .filter(({ Type, Properties }) => Type === "AWS::AppSync::Resolver" && Properties.TypeName === "Mutation")
       .forEach(({ Properties }) => {
         Properties.RequestMappingTemplate = `## [Start] Impersonation Check
