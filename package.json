@@ -1,9 +1,10 @@
 {
   "name": "@capbase/capbase-amplify-auth-transformer",
+  "license": "All Rights Reserved by Capbase Inc. (c) 2018-2022",
+  "author": "Capbase Inc <info@capbase.com>",
   "version": "1.1.3",
   "description": "Adds dependencies to DynamoDB table definitions in order to prevent concurrent creation limits from kicking in",
   "main": "index.js",
-  "author": "meshde",
   "private": false,
   "dependencies": {
     "@aws-amplify/cli": "^4.13.2",
